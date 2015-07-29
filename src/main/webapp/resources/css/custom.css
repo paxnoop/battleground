@@ -1,0 +1,65 @@
+body{
+    padding-top: 55px;
+}
+
+/*square table*/
+.square_title{
+    width: 50%;
+}
+.square_no{
+    text-align: center;
+    width: 10%;
+}
+.square_writer{
+    text-align: center;
+    width: 10%;
+}
+.square_click{
+    text-align: center;
+    width: 10%;
+}
+.square_regdate{
+    text-align: center;
+    width: 10%;
+}
+
+/*square comment*/
+tbody tr td.square_comment_writer{
+    background: #f5f5f5;
+    text-align: center;
+    border-bottom: 1px solid #ffffff;
+    width: 10%;
+}
+tbody tr td.square_comment_copy{
+    background: #f5f5f5;
+    text-align: left;
+    border-bottom: 1px solid #ffffff;
+    width: 50%;
+}
+tbody tr td.square_comment_updown{
+    background: #f5f5f5;
+    text-align: center;
+    border-bottom: 1px solid #ffffff;
+    width: 10%;
+}
+tbody tr td.square_comment_functions{
+    background: #f5f5f5;
+    text-align: center;
+    border-bottom: 1px solid #ffffff;
+    width: 10%;
+}
+tbody tr td.square_comment_regdate{
+    background: #f5f5f5;
+    text-align: center;
+    border-bottom: 1px solid #ffffff;
+    width: 10%;
+}
+
+
+table.dataTable thead th{
+    font-weight: normal;
+    border-bottom: 1px solid lightgrey;
+}
+table.dataTable.no-footer{
+    border-bottom: none;
+}

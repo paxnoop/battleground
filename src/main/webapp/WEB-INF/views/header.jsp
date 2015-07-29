@@ -10,3 +10,6 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/font-awesome.min.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/jquery.dataTables.min.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/custom.css"/>" />
+
+<link rel="icon" type="image/png" sizes="16x16" href="<c:url value="/resources/images/favicon.ico"/>">

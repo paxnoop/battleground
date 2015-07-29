@@ -4,11 +4,44 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
     <definition name="default" template="/WEB-INF/views/home.jsp">
-        <put-attribute name="title" value="Tiara Contents Click"/>
+        <put-attribute name="title" value="Battle Grounds"/>
         <put-attribute name="header" value="/WEB-INF/views/header.jsp"/>
     </definition>
 
-    <definition name="home" extends="default">
-        <put-attribute name="title" value="Tiara Contents Click home"/>
-    </definition>
+
+  <definition name="cityhall" extends="default">
+    <put-attribute name="content" value="/WEB-INF/views/locations/cityhall.jsp"/>
+  </definition>
+
+  <definition name="dungeon" extends="default">
+    <put-attribute name="content" value="/WEB-INF/views/locations/dungeon.jsp"/>
+  </definition>
+
+  <definition name="square" extends="default">
+    <put-attribute name="content" value="/WEB-INF/views/locations/square.jsp"/>
+  </definition>
+
+  <definition name="market" extends="default">
+    <put-attribute name="content" value="/WEB-INF/views/locations/market.jsp"/>
+  </definition>
+
+  <definition name="status" extends="default">
+    <put-attribute name="content" value="/WEB-INF/views/character/status.jsp"/>
+  </definition>
+
+  <definition name="inventory" extends="default">
+    <put-attribute name="content" value="/WEB-INF/views/character/inventory.jsp"/>
+  </definition>
+
+  <definition name="quest" extends="default">
+    <put-attribute name="content" value="/WEB-INF/views/character/quest.jsp"/>
+  </definition>
+
+  <definition name="guild" extends="default">
+    <put-attribute name="content" value="/WEB-INF/views/character/guild.jsp"/>
+  </definition>
+
+  <definition name="battle_page" extends="default">
+    <put-attribute name="content" value="/WEB-INF/views/battle_page.jsp"/>
+  </definition>
 </tiles-definitions>
