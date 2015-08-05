@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.battleground.prototype.mapper.ArticleMapper">
+
+  <resultMap id="articleResultMap" type="com.battleground.prototype.model.Article">
+    <result property="id" column="id"/>
+    <result property="reg_date" column="reg_date"/>
+    <result property="writer" column="writer"/>
+    <result property="click_count" column="click_count"/>
+    <result property="coment_count" column="coment_count"/>
+    <result property="title" column="title"/>
+    <result property="body" column="body"/>
+    <result property="no" column="no"/>
+    <result property="writer_id" column="writer_id"/>
+    <result property="location1" column="location1"/>
+    <result property="location2" column="location2"/>
+    <result property="img1" column="img1"/>
+    <result property="img2" column="img2"/>
+
+  </resultMap>
+
+  <select id="getAllArticles" parameterType="map" resultMap="articleResultMap">
+    select
+    *
+    from articles
+  </select>
+
+</mapper>
