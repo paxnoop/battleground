@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.battleground.prototype.mapper.LeftMenuMapper">
+
+  <resultMap id="leftMenuResultMap" type="com.battleground.prototype.model.LeftMenu">
+    <result property="location1" column="location1"/>
+    <result property="location2" column="location2"/>
+    <result property="ord" column="ord"/>
+    <result property="manager" column="manager"/>
+    <result property="incoming" column="incoming"/>
+    <result property="name" column="name"/>
+  </resultMap>
+
+  <select id="getLeftMenu" parameterType="map" resultMap="leftMenuResultMap">
+    select
+    *
+    from locations
+    where location1 = #{location1}
+    order by ord;
+  </select>
+
+</mapper>

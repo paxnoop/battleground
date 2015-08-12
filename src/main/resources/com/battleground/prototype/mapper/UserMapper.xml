@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.battleground.prototype.mapper.UserMapper">
+
+  <resultMap id="userResultMap" type="com.battleground.prototype.model.User">
+    <result property="id" column="id"/>
+    <result property="name" column="name"/>
+    <result property="email" column="email"/>
+    <result property="adress" column="adress"/>
+    <result property="phone" column="phone"/>
+    <result property="question1" column="question1"/>
+    <result property="question2" column="question2"/>
+    <result property="guild" column="guild"/>
+    <result property="level" column="level"/>
+    <result property="exp" column="exp"/>
+    <result property="weapon1" column="weapon1"/>
+    <result property="weapon2" column="weapon2"/>
+    <result property="armor" column="armor"/>
+    <result property="head" column="head"/>
+    <result property="hand" column="hand"/>
+    <result property="foot" column="foot"/>
+    <result property="ear" column="ear"/>
+    <result property="finger1" column="finger1"/>
+    <result property="finger2" column="finger2"/>
+    <result property="cloak" column="cloak"/>
+    <result property="shirts" column="shirts"/>
+    <result property="str" column="str"/>
+    <result property="dex" column="dex"/>
+    <result property="con" column="con"/>
+    <result property="intel" column="int"/>
+    <result property="wis" column="wis"/>
+    <result property="luc" column="luc"/>
+    <result property="skill1" column="skill1"/>
+    <result property="skill2" column="skill2"/>
+    <result property="skill3" column="skill3"/>
+    <result property="skill4" column="skill4"/>
+    <result property="skill5" column="skill5"/>
+    <result property="skill6" column="skill6"/>
+    <result property="skill7" column="skill7"/>
+  </resultMap>
+
+  <select id="getUserInfo" parameterType="map" resultMap="userResultMap">
+    <![CDATA[
+    select
+      *
+    from users
+    where id = #{user_id}
+    ]]>
+  </select>
+
+  <select id="getUserID" parameterType="map" resultType="String">
+    <![CDATA[
+    select
+      id
+    from users
+    where id = #{user_id}
+    ]]>
+  </select>
+
+  <select id="getUserPW" parameterType="map" resultType="String">
+    <![CDATA[
+    select
+      password
+    from users
+    where id = #{user_id}
+    ]]>
+  </select>
+
+
+
+</mapper>

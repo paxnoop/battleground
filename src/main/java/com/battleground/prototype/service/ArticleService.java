@@ -25,8 +25,21 @@ public class ArticleService {
     private ArticleMapper articleMapper;
 
     public List<Article> getArticles(Map<String, Object> param) throws Exception{
-        List<Article> articles = articleMapper.getAllArticles(param);
+        List<Article> articles = articleMapper.getArticleTitles(param);
         return articles;
+    }
+
+    public Article getArticle(Map<String, Object> param) throws Exception{
+        Article article = articleMapper.getArticle(param);
+        return article;
+    }
+
+    public boolean insertArticle(Map<String, Object> param) throws Exception{
+        return articleMapper.insertArticle(param);
+    }
+
+    public void addClickCount(Map<String, Object> param) throws Exception{
+        articleMapper.addClickCount(param);
     }
 
 

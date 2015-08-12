@@ -20,10 +20,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse in" aria-expanded="true">
             <ul class="nav navbar-nav">
-                <li <c:if test="${location eq 'cityhall'}">class="active"</c:if>><a href="/cityhall"><i class="fa fa-university"></i> 마을회관</a></li>
-                <li <c:if test="${location eq 'square'}">class="active"</c:if>><a href="/square"><i class="fa fa-cloud"></i> 광장</a></li>
-                <li <c:if test="${location eq 'dungeon'}">class="active"</c:if>><a href="/dungeon"><i class="fa fa-gavel"></i> 던전</a></li>
-                <li <c:if test="${location eq 'market'}">class="active"</c:if>><a href="/market"><i class="fa fa-shopping-cart"></i> 시장</a></li>
+                <li <c:if test="${location1 eq 'cityhall'}">class="active"</c:if>><a href="/cityhall/everyone"><i class="fa fa-university"></i> 마을회관</a></li>
+                <li <c:if test="${location1 eq 'square'}">class="active"</c:if>><a href="/square/everyone"><i class="fa fa-cloud"></i> 광장</a></li>
+                <li <c:if test="${location1 eq 'dungeon'}">class="active"</c:if>><a href="/dungeon/all"><i class="fa fa-gavel"></i> 던전</a></li>
+                <li <c:if test="${location1 eq 'market'}">class="active"</c:if>><a href="/market/all"><i class="fa fa-shopping-cart"></i> 시장</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> 캐릭터<span class="caret"></span></a>
                     <ul class="dropdown-menu">

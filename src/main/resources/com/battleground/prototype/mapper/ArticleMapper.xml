@@ -18,10 +18,58 @@
     <result property="img2" column="img2"/>
   </resultMap>
 
-  <select id="getAllArticles" parameterType="map" resultMap="articleResultMap">
+  <select id="getArticleTitles" parameterType="map" resultMap="articleResultMap">
+    <![CDATA[
     select
-    *
+      id,
+      title,
+      writer,
+      reg_date,
+      click_count
     from articles
+    where location1 = #{location1} and location2 = #{location2}
+    order by id desc
+    ]]>
   </select>
+
+  <select id="getArticle" parameterType="map" resultMap="articleResultMap">
+    <![CDATA[
+    select
+      *
+    from articles
+    where id = #{a_id}
+    ]]>
+  </select>
+
+  <update id="addClickCount" parameterType="map">
+    update articles
+    set click_count = click_count+1
+    where  id= #{a_id}
+  </update>
+
+  <insert id="insertArticle" parameterType="hashmap">
+    <![CDATA[
+        INSERT INTO articles
+        (
+            reg_date,
+            writer,
+            title,
+            body,
+            writer_id,
+            location1,
+            location2
+        )
+        VALUES
+        (
+            now(),
+            #{writer},
+            #{title},
+            #{body},
+            #{writer_id},
+            #{location1},
+            #{location2}
+        )
+    ]]>
+</insert>
 
 </mapper>

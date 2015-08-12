@@ -1,3 +1,5 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%--
   Created by IntelliJ IDEA.
   User: sugin
@@ -6,91 +8,67 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script type="text/javascript" src="<c:url value="/resources/smarteditor/js/HuskyEZCreator.js"/>" charset="utf-8"></script>
 <div class="row">
     <div class="col-md-2" style="padding: 0px">
-        <ul class="list-group">
-            <li class="list-group-item"><span class="badge">14</span><a href="#">모두의 광장</a></li>
-            <li class="list-group-item"><span class="badge">14</span><a href="#">장인의 집</a></li>
-            <li class="list-group-item"><span class="badge">14</span><a href="#">선술집</a></li>
-            <li class="list-group-item"><span class="badge">14</span><a href="#">푸줏간</a></li>
-            <li class="list-group-item"><span class="badge">14</span><a href="#">자전거 길</a></li>
-            <li class="list-group-item"><span class="badge">14</span><a href="#">쓸쓸한 뒷골목</a></li>
+        <ul class="list-group" id="leftmenu">
         </ul>
     </div>
     <div class="col-md-10" style="padding-left: 10px">
         <div class="panel panel-default">
             <!-- Default panel contents -->
-            <div class="panel-heading" style="text-align: left">광장 > 모두의 광장</div>
+            <div class="panel-heading" style="text-align: left">${location1Kor} > ${location2Kor} > 글쓰기</div>
             <div style="padding: 10px">
-                <div>
-                    [제목]test
-                </div>
-                <div style="border-bottom-style:dashed;border-bottom-width: 1px;opacity: 0.3;margin: 10px 0px 10px 0px;"></div>
-                <div style="margin-bottom: 10px">
-                    작성자
-                </div>
-                <div style="height: 500px;border: 1px solid lightgrey;padding: 10px;border-radius: 4px 4px 0px 0px;border-bottom: 0px">
-                    본문
-                </div>
-                <div style="border: 1px solid lightgrey;padding: 10px;border-radius: 0px 0px 4px 4px;border-top: 0px">
-                    <table id="comments" class="" cellspacing="0" style="width: 100%;">
+                <form id='myForm' method='post' action="/regist">
+                    <input type="hidden" name="location1" id="location1" value="${location1}">
+                    <input type="hidden" name="location2" id="location2" value="${location2}">
+                    <input type="hidden" name="writer" id="writer" value="운영자">
+                    <table class="table" style=" font-size: 14px;">
+                        <tr>
+                            <td style="width: 10%;border:none">제목</td>
+                            <td style="width: 90%;border:none"><input type="text" style="width:600px" name="title" id="title"/></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 10%;border:none">작성자</td>
+                            <td style="width: 90%;border:none">운영자</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="view_text">
+                                <textarea name="body" id="body" rows="10" cols="126"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+
+                        </tr>
                     </table>
-                </div>
+                    <div style="text-align: right; margin-right: 15px">
+                        <a class="btn btn-default" id="write" onclick="fn_openBoardList()">목록</a>
+                        <a class="btn btn-default" id="list" onclick="fn_insertBoard()">등록</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
+    var oEditors = [];
     $(document).ready(function() {
-        var row =[1,"test","tester",10,"07.06.10:13"];
-        var data = [];
-        for(var i =0;i<10;i++){
-            data.push(row);
-        }
-        var tableColumnDef = [
-            {
-                "sClass": "square_comment_writer",
-                "mRender": function (data, type, full) {
-                    return data;
-                }
-            },
-            {
-                "sClass": "square_comment_copy",
-                "mRender": function (data, type, full) {
-                    return data;
-                }
-            },
-            {
-                "sClass": "square_comment_updown",
-                "mRender": function (data, type, full) {
-                    return data;
-                }
-            },
-            {
-                "sClass": "square_comment_functions",
-                "mRender": function (data, type, full) {
-                    return data;
-                }
-            },
-            {
-                "sClass": "square_comment_regdate",
-                "mRender": function (data, type, full) {
-                    return data;
-                }
-            }
-        ];
+        nhn.husky.EZCreator.createInIFrame({
+            oAppRef: oEditors,
+            elPlaceHolder: "body",
+            sSkinURI: '<c:url value="/resources/smarteditor/SmartEditor2Skin.html"/>',
+            fCreator: "createSEditor2"
+        });
+        getLeftMenu(location1);
 
-        $('#comments').dataTable( {
-            "aaData":   data,
-            "aoColumns": tableColumnDef,
-            "bScrollCollapse": true,
-            "bLengthChange": false,     //length change select box
-            "bFilter": false,           //search bar
-            "bPaginate": false,         //paging
-            "bDeferRender": true,
-            "bInfo": false,
-            "bSort" : false,
-            "sDom": 'lfrtip'
-        } );
-    } );
+    });
+
+    function fn_openBoardList(){
+        location.href="/${location1}/${location2}";
+    }
+
+    function fn_insertBoard(){
+        oEditors.getById["body"].exec("UPDATE_CONTENTS_FIELD", []);
+        $("#myForm").submit();
+    }
 </script>
