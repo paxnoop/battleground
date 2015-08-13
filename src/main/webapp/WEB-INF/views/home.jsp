@@ -34,12 +34,26 @@
 
                     </ul>
                 </li>
+
             </ul>
-            <%--<ul class="nav navbar-nav navbar-right">--%>
-                <%--<li><a href="../navbar/">Default</a></li>--%>
-                <%--<li><a href="../navbar-static-top/">Static top</a></li>--%>
-                <%--<li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>--%>
-            <%--</ul>--%>
+            <c:if test="${user_id != null}">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i> ${user_id}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/status"><i class="fa fa-wrench"></i> 내 정보변경</a></li>
+                            <li><a href="/logout"><i class="fa fa-sign-out"></i> 로그아웃</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </c:if>
+            <c:if test="${user_id ==null && location1 != 'cityhall'}">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/login"><i class="fa fa-sign-in"></i> 로그인</a></li>
+            </ul>
+            </c:if>
+
+
         </div>
     </div>
 </nav>

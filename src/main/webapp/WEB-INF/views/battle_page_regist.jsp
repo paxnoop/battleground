@@ -26,7 +26,7 @@
                     <table class="table" style=" font-size: 14px;">
                         <tr>
                             <td style="width: 10%;border:none">제목</td>
-                            <td style="width: 90%;border:none"><input type="text" style="width:600px" name="title" id="title"/></td>
+                            <td style="width: 90%;border:none"><input type="text" style="width:70%" name="title" id="title"/></td>
                         </tr>
                         <tr>
                             <td style="width: 10%;border:none">작성자</td>
@@ -34,7 +34,7 @@
                         </tr>
                         <tr>
                             <td colspan="2" class="view_text">
-                                <textarea name="body" id="body" rows="10" cols="126"></textarea>
+                                <textarea name="body" id="body" rows="10" style="width: 100%"></textarea>
                             </td>
                         </tr>
                         <tr>

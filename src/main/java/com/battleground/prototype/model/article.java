@@ -17,11 +17,12 @@ public class Article {
     private String location2;
     private String img1;
     private String img2;
+    private int like_count;
+    private int dislike_count;
 
     public Article(){
 
     }
-
     public String getId() {
         return id;
     }
@@ -124,5 +125,21 @@ public class Article {
 
     public void setImg2(String img2) {
         this.img2 = img2;
+    }
+
+    public int getLike_count() {
+        return like_count;
+    }
+
+    public void setLike_count(int like_count) {
+        this.like_count = like_count;
+    }
+
+    public int getDislike_count() {
+        return dislike_count;
+    }
+
+    public void setDislike_count(int dislike_count) {
+        this.dislike_count = dislike_count;
     }
 }

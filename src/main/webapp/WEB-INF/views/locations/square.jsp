@@ -5,13 +5,14 @@
   Time: 오후 6:54
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="row">
-    <div class="col-md-2" style="padding: 0px">
+    <div class="col-xs-2" style="padding: 0px">
         <ul class="list-group" id="leftmenu">
         </ul>
     </div>
-    <div class="col-md-10" style="padding-left: 10px">
+    <div class="col-xs-10" style="padding-left: 10px">
         <div class="panel panel-default" style="text-align: center">
             <!-- Default panel contents -->
             <div class="panel-heading" style="text-align: left">${location1Kor} > ${location2Kor}</div>
@@ -47,7 +48,10 @@
                         </li>
 
                     </ul>
+                    <c:if test="${user_id != null}">
                     <a class="btn btn-default" href="/${location1}/${location2}/regist" style="float: right;margin-right:50px">글쓰기</a>
+                    </c:if>
+
                 </div>
 
 

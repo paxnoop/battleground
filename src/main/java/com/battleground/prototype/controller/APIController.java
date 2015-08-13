@@ -2,6 +2,7 @@ package com.battleground.prototype.controller;
 
 import com.battleground.prototype.model.Article;
 import com.battleground.prototype.service.ArticleService;
+import com.battleground.prototype.service.CommentService;
 import com.battleground.prototype.service.LeftMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,6 +26,10 @@ public class APIController {
     @Qualifier("leftMenuService")
     private LeftMenuService leftMenuService;
 
+    @Autowired
+    @Qualifier("commentService")
+    private CommentService commentService;
+
     @RequestMapping(value = "/api/articles", method = RequestMethod.GET)
     public List getArticles(@RequestParam String location1,
                             @RequestParam String location2) throws Exception{
@@ -46,5 +51,12 @@ public class APIController {
         Map<String, Object> param = new HashMap<>();
         param.put("location1", location1);
         return leftMenuService.getLeftMenu(param);
+    }
+
+    @RequestMapping(value = "/api/comments", method = RequestMethod.GET)
+    public List getComments(@RequestParam String a_id) throws Exception{
+        Map<String, Object> param = new HashMap<>();
+        param.put("a_id", a_id);
+        return commentService.getComments(param);
     }
 }

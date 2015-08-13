@@ -12,7 +12,7 @@
     }
 </style>
 <div class="row">
-    <div class="col-md-2" style="padding: 0px">
+    <div class="col-xs-2" style="padding: 0px">
         <ul class="list-group">
             <li class="list-group-item"><span class="badge">14</span><a href="#">한적한 들판</a></li>
             <li class="list-group-item"><span class="badge">14</span><a href="#">오크 야영지</a></li>
@@ -21,7 +21,7 @@
             <li class="list-group-item"><span class="badge">14</span><a href="#">쓸쓸한 뒷골목</a></li>
         </ul>
     </div>
-    <div class="col-md-10" style="padding-left: 10px">
+    <div class="col-xs-10" style="padding-left: 10px">
         <div class="panel panel-danger" style="text-align: center">
             <!-- Default panel contents -->
             <div class="panel-heading" style="text-align: left">던전 > 한적한 들판</div>
@@ -31,7 +31,7 @@
             </table>
 
             <div class="row" style="margin:20px 0px 20px 0px;text-align: center">
-                <div class="col-sm-4 col-sm-offset-2">
+                <div class="col-xs-4 col-xs-offset-2">
                     <ul class="pagination" style="margin: 0px;">
                         <li>
                             <a href="#" aria-label="Previous">
@@ -51,7 +51,7 @@
                     </ul>
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-xs-4">
                     <div class="input-group">
                         <div class="input-group-btn">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">제목 <span class="caret"></span></button>

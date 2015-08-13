@@ -12,7 +12,7 @@
             <input type="hidden" name="location1" id="location1" value="${location1}">
             <input type="hidden" name="location2" id="location2" value="${location2}">
             <input type="text" class="form-control" name="id" id="id" placeholder="아이디" style="border-radius: 4px 0px 0px 0px" >
-            <input type="text" class="form-control" name="pw" id="pw" placeholder="패스워드" style="border-radius: 0px 0px 0px 4px">
+            <input type="password" class="form-control" name="pw" id="pw" placeholder="패스워드" style="border-radius: 0px 0px 0px 4px" onkeypress="if(event.keyCode==13) {fn_login(); return false;}">
         </form>
         <div class="btn btn-default" onclick="fn_login()" style="width: 100%">로그인</div>
         <div style="margin-top: 10px; text-align: center;">

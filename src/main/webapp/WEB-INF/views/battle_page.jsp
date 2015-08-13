@@ -14,16 +14,22 @@
     <div class="col-md-10" style="padding-left: 10px">
         <div class="panel panel-default">
             <!-- Default panel contents -->
-            <div class="panel-heading" style="text-align: left">광장 > 모두의 광장</div>
+            <div class="panel-heading" style="text-align: left">${location1} > ${location2}</div>
             <div style="padding: 10px">
                 <div >
-                    <span style="width: 100px">제목</span>
+                    <span style="width: 100px">제목 | </span>
                     <span id="title"></span>
                 </div>
                 <div style="border-bottom-style:dashed;border-bottom-width: 1px;opacity: 0.3;margin: 10px 0px 10px 0px;"></div>
                 <div style="margin-bottom: 10px">
-                    <span style="width: 100px">작성자</span>
+                    <span style="width: 100px;font-size: 12px;color: grey">작성자</span>
                     <span id="writer"></span>
+                    <span style="width: 100px;font-size: 12px;color: grey">| 조회수</span>
+                    <span id="click_count" style="font-size: 12px"></span>
+                    <span style="width: 100px;font-size: 12px;color: grey">| 좋아요</span>
+                    <span id="like_count" style="font-size: 12px;color: #0000ff"></span>
+                    <span style="width: 100px;font-size: 12px;color: grey">| 등록시간</span>
+                    <span id="reg_date" style="font-size: 12px;color: grey"></span>
                 </div>
                 <div id="body" style="min-height: 200px;border: 1px solid lightgrey;padding: 10px;border-radius: 4px 4px 0px 0px;border-bottom: 0px">
                     본문
@@ -49,57 +55,10 @@
             $("#title").html(data.title);
             $("#body").html(data.body);
             $("#writer").html(data.writer);
+            $("#click_count").html(data.click_count);
+            $("#like_count").html(data.like_count);
+            $("#reg_date").html(moment(data.reg_date).format("YYYY.MM.DD HH시mm분"));
         });
-
-        var row =[1,"test","tester",10,"07.06.10:13"];
-        var data = [];
-        for(var i =0;i<10;i++){
-            data.push(row);
-        }
-        var tableColumnDef = [
-            {
-                "sClass": "square_comment_writer",
-                "mRender": function (data, type, full) {
-                    return data;
-                }
-            },
-            {
-                "sClass": "square_comment_copy",
-                "mRender": function (data, type, full) {
-                    return data;
-                }
-            },
-            {
-                "sClass": "square_comment_updown",
-                "mRender": function (data, type, full) {
-                    return data;
-                }
-            },
-            {
-                "sClass": "square_comment_functions",
-                "mRender": function (data, type, full) {
-                    return data;
-                }
-            },
-            {
-                "sClass": "square_comment_regdate",
-                "mRender": function (data, type, full) {
-                    return data;
-                }
-            }
-        ];
-
-        $('#comments').dataTable( {
-            "aaData":   data,
-            "aoColumns": tableColumnDef,
-            "bScrollCollapse": true,
-            "bLengthChange": false,     //length change select box
-            "bFilter": false,           //search bar
-            "bPaginate": false,         //paging
-            "bDeferRender": true,
-            "bInfo": false,
-            "bSort" : false,
-            "sDom": 'lfrtip'
-        } );
+        getComments(${a_id});
     } );
 </script>

@@ -38,7 +38,8 @@
             }
         });
     }
-    function makeTableItems(tableItems){
+
+    function makeArticleItems(tableItems){
         var items=[];
         for(var i=0;i<tableItems.length;i++){
             var item=[];
@@ -55,6 +56,79 @@
         return items;
     }
 
+    function makeCommentItems(commentItems){
+        var items=[];
+        for(var i=0;i<commentItems.length;i++){
+            var item=[];
+            item.push(commentItems[i].writer_name);
+            item.push(commentItems[i].copy);
+            item.push(commentItems[i].like_count+"/"+commentItems[i].dislike_count);
+            item.push("test");
+            item.push(commentItems[i].reg_date);
+            items.push(item)
+        }
+        return items;
+    }
+
+    function getComments(a_id){
+        $.ajax({
+            url:"/api/comments",
+            dataType:"json",
+            data:{
+                "a_id": a_id,
+
+            }
+        }).done(function(data){
+            var tableData = makeCommentItems(data);
+            var tableColumnDef = [
+                {
+                    "sClass": "square_comment_writer",
+                    "mRender": function (data, type, full) {
+                        return data;
+                    }
+                },
+                {
+                    "sClass": "square_comment_copy",
+                    "mRender": function (data, type, full) {
+                        return data;
+                    }
+                },
+                {
+                    "sClass": "square_comment_updown",
+                    "mRender": function (data, type, full) {
+                        return data;
+                    }
+                },
+                {
+                    "sClass": "square_comment_functions",
+                    "mRender": function (data, type, full) {
+                        return data;
+                    }
+                },
+                {
+                    "sClass": "square_comment_regdate",
+                    "mRender": function (data, type, full) {
+                        return data;
+                    }
+                }
+            ];
+            $('#comments').dataTable( {
+                "aaData":   tableData,
+                "aoColumns": tableColumnDef,
+                "bScrollCollapse": true,
+                "bLengthChange": false,     //length change select box
+                "bFilter": false,           //search bar
+                "bPaginate": false,         //paging
+                "bDeferRender": true,
+                "bInfo": false,
+                "bSort" : false,
+                "language" : {
+                    "emptyTable": "등록된 댓글이 없습니다."
+                }
+            });
+        });
+    }
+
     function getArticles(location1, location2){
         $.ajax({
             url:"/api/articles",
@@ -64,7 +138,7 @@
                 "location2":location2
             }
         }).done(function(data){
-            var tableData = makeTableItems(data);
+            var tableData = makeArticleItems(data);
             var tableColumnDef = [
                 {
                     "sTitle": "no",
@@ -91,7 +165,7 @@
                     "sTitle": "작성일",
                     "sClass": "square_regdate",
                     "mRender": function (data, type, full) {
-                        if(moment("2015-08-11 17:36:57.0").format("D")!==moment().format("D")){
+                        if(moment(data).format("D")!==moment().format("D")){
                             return moment(data).format("YYYY.MM.DD");
                         }
                         return moment(data).format("HH:mm");
@@ -118,7 +192,7 @@
                 "language" : {
                     "emptyTable": "등록된 게시물이 없습니다."
                 }
-            } );
+            });
         });
     }
 </script>

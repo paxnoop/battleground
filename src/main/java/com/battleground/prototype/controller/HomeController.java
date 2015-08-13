@@ -27,10 +27,10 @@ import javax.servlet.http.HttpSession;
 /**
  * Handles requests for the application home page.
  */
-@RestController
+@Controller
 public class HomeController {
 
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+//	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 //	@RequestMapping(value = "/", method = RequestMethod.GET)
 //	public String home() {
 //        return "redirect:/cityhall/all";
@@ -56,14 +56,8 @@ public class HomeController {
         ModelAndView model = new ModelAndView();
         String id = request.getParameter("id");
         String pw = request.getParameter("pw");
-        System.out.println(id);
-        System.out.println(pw);
-
-
         Map<String, Object> params = new HashMap<>();
         params.put("user_id",id);
-        System.out.println(userService.getUserID(params));
-        System.out.println(userService.getUserPW(params));
         if(userService.getUserID(params)==null){
             model.addObject("message","아이디가 존재하지 않습니다.");
             model.setViewName("login");
@@ -86,16 +80,25 @@ public class HomeController {
         return model;
     }
 
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    public ModelAndView logout(HttpServletRequest request){
+        ModelAndView model = new ModelAndView();
+        model.setViewName("cityhall");
+        HttpSession httpSession = request.getSession(true);
+        httpSession.invalidate();
+        return model;
+    }
+
     @RequestMapping(value = "/cityhall", method = RequestMethod.GET)
     public ModelAndView locations(HttpServletRequest request) {
         HttpSession httpSession = request.getSession(false);
         ModelAndView model = new ModelAndView();
+        model.setViewName("cityhall");
         if(httpSession !=null){
-            model.setViewName("cityhall");
             model.addObject("user_id", httpSession.getAttribute("user_id"));
             model.addObject("user_name", httpSession.getAttribute("user_name"));
         }
-        model.setViewName("cityhall");
+
         return model;
     }
 
@@ -103,9 +106,12 @@ public class HomeController {
     public ModelAndView locations(@PathVariable String location1,
                                   @PathVariable String location2,
                                   HttpServletRequest request) {
-        HttpSession httpSession = request.getSession();
-
         ModelAndView model = new ModelAndView();
+        HttpSession httpSession = request.getSession(false);
+        if(httpSession != null){
+            model.addObject("user_id", httpSession.getAttribute("user_id"));
+            model.addObject("user_name", httpSession.getAttribute("user_name"));
+        }
         model.setViewName(location1);
         model.addObject("location1", location1);
         model.addObject("location2", location2);
@@ -119,11 +125,12 @@ public class HomeController {
                                    @PathVariable String location2,
                                    @RequestParam String a_id,
                                    HttpServletRequest request) throws Exception{
-        HttpSession httpSession = request.getSession();
-
-//        System.out.println(httpSession.getAttribute("location1"));
-        System.out.println(httpSession.getId());
         ModelAndView model = new ModelAndView();
+        HttpSession httpSession = request.getSession(false);
+        if(httpSession != null){
+            model.addObject("user_id", httpSession.getAttribute("user_id"));
+            model.addObject("user_name", httpSession.getAttribute("user_name"));
+        }
         model.setViewName("battle_page");
         model.addObject("location1", location1);
         model.addObject("location2", location2);
@@ -137,8 +144,23 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/{location1}/{location2}/regist", method = RequestMethod.GET)
-    public ModelAndView registPage(@PathVariable String location1, @PathVariable String location2) {
+    public ModelAndView registPage(@PathVariable String location1, @PathVariable String location2, HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
+        HttpSession httpSession = request.getSession(false);
+        if(httpSession == null){
+            model.setViewName("login");
+            model.addObject("message","로그인 후 글쓰기가 가능합니다.");
+            return model;
+        }
+        if(httpSession != null){
+            if(httpSession.getAttribute("user_id") == null){
+                model.setViewName("login");
+                model.addObject("message","로그인 후 글쓰기가 가능합니다.");
+                return model;
+            }
+            model.addObject("user_id", httpSession.getAttribute("user_id"));
+            model.addObject("user_name", httpSession.getAttribute("user_name"));
+        }
         model.setViewName("battle_page_regist");
         model.addObject("location1", location1);
         model.addObject("location2", location2);
@@ -148,17 +170,19 @@ public class HomeController {
     }
 
     @RequestMapping(value="/regist" , method = RequestMethod.POST)
-    public ModelAndView registCompletePage(@RequestParam String writer,
+    public String registCompletePage(@RequestParam String writer,
                                      @RequestParam String title,
                                      @RequestParam String body,
                                      @RequestParam String location1,
-                                     @RequestParam String location2) throws Exception{
+                                     @RequestParam String location2,
+                                     HttpServletRequest request) throws Exception{
         ModelAndView model = new ModelAndView();
-        model.setViewName(location1);
-        model.addObject("location1", location1);
-        model.addObject("location2", location2);
-        model.addObject("location1Kor", Utils.getKoreanLocationName(location1));
-        model.addObject("location2Kor", Utils.getKoreanLocationName(location2));
+        HttpSession httpSession = request.getSession(false);
+        if(httpSession != null){
+            model.addObject("user_id", httpSession.getAttribute("user_id"));
+            model.addObject("user_name", httpSession.getAttribute("user_name"));
+
+        }
 
         Map<String, Object> params = new HashMap<>();
         params.put("writer", writer);
@@ -168,7 +192,7 @@ public class HomeController {
         params.put("location1", location1);
         params.put("location2", location2);
         articleService.insertArticle(params);
-        return model;
+        return "redirect:/"+location1+"/"+location2;
     }
 
 
