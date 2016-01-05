@@ -40,7 +40,6 @@
                         <li><a href="#">8</a></li>
                         <li><a href="#">9</a></li>
                         <li><a href="#">10</a></li>
-
                         <li>
                             <a href="#" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
@@ -80,16 +79,6 @@
     $(document).ready(function() {
         getLeftMenu(location1);
         getArticles(location1, location2);
-        $.ajax({
-            url:"/api/articles",
-            dataType:"json",
-            data:{
-                "location1":location1,
-                "location2":location2
-            }
-        }).done(function(data){
-            test=data;
-        });
     });
 
 

@@ -25,4 +25,25 @@
     where a_id = #{a_id}
     ]]>
   </select>
+
+  <insert id="insertComment" parameterType="hashmap">
+    <![CDATA[
+        INSERT INTO comments
+        (
+            reg_date,
+            writer_name,
+            writer_id,
+            copy,
+            a_id
+        )
+        VALUES
+        (
+            now(),
+            #{writer},
+            #{writer_id},
+            #{copy},
+            #{a_id}
+        )
+    ]]>
+  </insert>
 </mapper>

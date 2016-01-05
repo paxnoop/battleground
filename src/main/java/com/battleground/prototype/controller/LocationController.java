@@ -7,6 +7,7 @@ import com.battleground.prototype.common.Utils;
 import com.battleground.prototype.model.Breadcrumb;
 import com.battleground.prototype.model.User;
 import com.battleground.prototype.service.ArticleService;
+import com.battleground.prototype.service.CommentService;
 import com.battleground.prototype.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ import javax.servlet.http.HttpSession;
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {
+public class LocationController {
 
 //	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 //	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -41,53 +42,8 @@ public class HomeController {
     private ArticleService articleService;
 
     @Autowired
-    @Qualifier("userService")
-    private UserService userService;
-
-    @RequestMapping(value = "login", method = RequestMethod.GET)
-    public ModelAndView login() {
-        ModelAndView model = new ModelAndView();
-        model.setViewName("login");
-        return model;
-    }
-
-    @RequestMapping(value = "/session", method = RequestMethod.POST)
-    public ModelAndView session(HttpServletRequest request) {
-        ModelAndView model = new ModelAndView();
-        String id = request.getParameter("id");
-        String pw = request.getParameter("pw");
-        Map<String, Object> params = new HashMap<>();
-        params.put("user_id",id);
-        if(userService.getUserID(params)==null){
-            model.addObject("message","아이디가 존재하지 않습니다.");
-            model.setViewName("login");
-            return model;
-        }
-        else if(!userService.getUserPW(params).equals(pw)){
-            model.addObject("message","비밀번호가 일치하지 않습니다.");
-            model.addObject("user_id", id);
-            model.setViewName("login");
-        }
-        else if (userService.getUserID(params)!=null && userService.getUserPW(params).equals(pw)){
-            HttpSession httpSession = request.getSession(true);
-            User user = userService.getUserInfo(params);
-            httpSession.setAttribute("user_id", user.getId());
-            httpSession.setAttribute("user_name", user.getName());
-            model.addObject("user_id", httpSession.getAttribute("user_id"));
-            model.addObject("user_name", httpSession.getAttribute("user_name"));
-            model.setViewName("cityhall");
-        }
-        return model;
-    }
-
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
-    public ModelAndView logout(HttpServletRequest request){
-        ModelAndView model = new ModelAndView();
-        model.setViewName("cityhall");
-        HttpSession httpSession = request.getSession(true);
-        httpSession.invalidate();
-        return model;
-    }
+    @Qualifier("commentService")
+    private CommentService commentService;
 
     @RequestMapping(value = "/cityhall", method = RequestMethod.GET)
     public ModelAndView locations(HttpServletRequest request) {
@@ -98,7 +54,6 @@ public class HomeController {
             model.addObject("user_id", httpSession.getAttribute("user_id"));
             model.addObject("user_name", httpSession.getAttribute("user_name"));
         }
-
         return model;
     }
 
@@ -169,30 +124,49 @@ public class HomeController {
         return model;
     }
 
-    @RequestMapping(value="/regist" , method = RequestMethod.POST)
+    @RequestMapping(value="/regist_article" , method = RequestMethod.POST)
     public String registCompletePage(@RequestParam String writer,
+                                     @RequestParam String writer_id,
                                      @RequestParam String title,
                                      @RequestParam String body,
                                      @RequestParam String location1,
                                      @RequestParam String location2,
                                      HttpServletRequest request) throws Exception{
-        ModelAndView model = new ModelAndView();
         HttpSession httpSession = request.getSession(false);
         if(httpSession != null){
-            model.addObject("user_id", httpSession.getAttribute("user_id"));
-            model.addObject("user_name", httpSession.getAttribute("user_name"));
-
+            if(httpSession.getAttribute("user_id").equals(writer_id)){
+                Map<String, Object> params = new HashMap<>();
+                params.put("writer", writer);
+                params.put("title", title);
+                params.put("body", body);
+                params.put("writer_id", writer_id);
+                params.put("location1", location1);
+                params.put("location2", location2);
+                articleService.insertArticle(params);
+            }
         }
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("writer", writer);
-        params.put("title", title);
-        params.put("body", body);
-        params.put("writer_id", "admin");
-        params.put("location1", location1);
-        params.put("location2", location2);
-        articleService.insertArticle(params);
         return "redirect:/"+location1+"/"+location2;
+    }
+
+    @RequestMapping(value="/regist_comment" , method = RequestMethod.POST)
+    public String registComment(@RequestParam String writer,
+                                     @RequestParam String writer_id,
+                                     @RequestParam String a_id,
+                                     @RequestParam String copy,
+                                     @RequestParam String location1,
+                                     @RequestParam String location2,
+                                     HttpServletRequest request) throws Exception{
+        HttpSession httpSession = request.getSession(false);
+        if(httpSession != null && !writer_id.equals("") && writer_id != null){
+            Map<String, Object> params = new HashMap<>();
+            params.put("writer", writer);
+            params.put("writer_id", writer_id);
+            params.put("a_id", a_id);
+            params.put("copy", copy);
+            commentService.insertComment(params);
+        }
+        return "redirect:/"+location1+"/"+location2+"/battle_page?a_id="+a_id;
     }
 
 

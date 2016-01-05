@@ -25,4 +25,8 @@ public class CommentService {
     public List<Comment> getComments(Map<String, Object> params){
         return commentMapper.getComments(params);
     }
+
+    public boolean insertComment(Map<String, Object> params){
+        return commentMapper.insertComment(params);
+    }
 }

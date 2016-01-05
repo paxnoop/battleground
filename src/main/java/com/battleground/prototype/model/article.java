@@ -8,7 +8,7 @@ public class Article {
     private String reg_date;
     private String writer;
     private Integer click_count;
-    private Integer coment_count;
+    private Integer comment_count;
     private String title;
     private String body;
     private Long no;
@@ -55,12 +55,12 @@ public class Article {
         this.click_count = click_count;
     }
 
-    public Integer getComent_count() {
-        return coment_count;
+    public Integer getComment_count() {
+        return comment_count;
     }
 
-    public void setComent_count(Integer coment_count) {
-        this.coment_count = coment_count;
+    public void setComment_count(Integer comment_count) {
+        this.comment_count = comment_count;
     }
 
     public String getTitle() {

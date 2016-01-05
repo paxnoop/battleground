@@ -46,7 +46,8 @@
             item.push(tableItems[i].id);
             var title={};
             title.id=tableItems[i].id;
-            title.title=tableItems[i].title;
+
+            title.title= (tableItems[i].comment_count !== 0) ? tableItems[i].title+' ('+ tableItems[i].comment_count +')' : tableItems[i].title;
             item.push(title);
             item.push(tableItems[i].writer);
             item.push(tableItems[i].reg_date);
@@ -108,7 +109,10 @@
                 {
                     "sClass": "square_comment_regdate",
                     "mRender": function (data, type, full) {
-                        return data;
+                        if(moment(data).format("YYMMDD")!==moment().format("YYMMDD")){
+                            return moment(data).format("YYYY.MM.DD");
+                        }
+                        return moment(data).format("HH:mm");
                     }
                 }
             ];
@@ -123,10 +127,19 @@
                 "bInfo": false,
                 "bSort" : false,
                 "language" : {
-                    "emptyTable": "등록된 댓글이 없습니다."
+                    "emptyTable": "따듯한 한 마디는 모두를 행복하게 만듭니다."
                 }
             });
         });
+    }
+
+    function checkLogin(){
+        if("${user_id}"!==""){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     function getArticles(location1, location2){
@@ -165,7 +178,8 @@
                     "sTitle": "작성일",
                     "sClass": "square_regdate",
                     "mRender": function (data, type, full) {
-                        if(moment(data).format("D")!==moment().format("D")){
+                        console.log(data);
+                        if(moment(data).format("YYMMDD")!==moment().format("YYMMDD")){
                             return moment(data).format("YYYY.MM.DD");
                         }
                         return moment(data).format("HH:mm");

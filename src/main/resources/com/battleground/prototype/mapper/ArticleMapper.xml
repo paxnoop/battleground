@@ -7,7 +7,7 @@
     <result property="reg_date" column="reg_date"/>
     <result property="writer" column="writer"/>
     <result property="click_count" column="click_count"/>
-    <result property="coment_count" column="coment_count"/>
+    <result property="comment_count" column="comment_count"/>
     <result property="title" column="title"/>
     <result property="body" column="body"/>
     <result property="no" column="no"/>
@@ -23,13 +23,24 @@
   <select id="getArticleTitles" parameterType="map" resultMap="articleResultMap">
     <![CDATA[
     select
-      id,
-      title,
-      writer,
-      reg_date,
-      click_count
-    from articles
-    where location1 = #{location1} and location2 = #{location2} and valid = 'Y'
+      a.id as id,
+      a.title as title,
+      a.writer as writer,
+      a.reg_date as reg_date,
+      a.click_count as click_count,
+	    IFNULL(b.comment_count, 0) as comment_count
+    from
+      (select
+        id,
+        title,
+        writer,
+        reg_date,
+        click_count
+      from articles
+      where location1 = #{location1} and location2 = #{location2} and valid = 'Y') a
+      left join
+      (select count(*) as comment_count, a_id from comments group by a_id) b
+      on (a.id = b.a_id)
     order by id desc
     ]]>
   </select>
@@ -42,7 +53,8 @@
       writer,
       reg_date,
       click_count,
-
+      like_count,
+      body
     from articles
     where id = #{a_id} and valid = 'Y'
     ]]>
@@ -77,6 +89,6 @@
             #{location2}
         )
     ]]>
-</insert>
+  </insert>
 
 </mapper>

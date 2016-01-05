@@ -10,4 +10,5 @@ import java.util.Map;
  */
 public interface CommentMapper {
     List<Comment> getComments(Map<String, Object> params);
+    boolean insertComment(Map<String, Object> params);
 }

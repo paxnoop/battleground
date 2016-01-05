@@ -19,10 +19,11 @@
             <!-- Default panel contents -->
             <div class="panel-heading" style="text-align: left">${location1Kor} > ${location2Kor} > 글쓰기</div>
             <div style="padding: 10px">
-                <form id='myForm' method='post' action="/regist">
+                <form id='myForm' method='post' action="/regist_article">
                     <input type="hidden" name="location1" id="location1" value="${location1}">
                     <input type="hidden" name="location2" id="location2" value="${location2}">
-                    <input type="hidden" name="writer" id="writer" value="운영자">
+                    <input type="hidden" name="writer" id="${user_name}" value="${user_name}">
+                    <input type="hidden" name="writer_id" id="${user_id}" value="${user_id}">
                     <table class="table" style=" font-size: 14px;">
                         <tr>
                             <td style="width: 10%;border:none">제목</td>
@@ -30,7 +31,7 @@
                         </tr>
                         <tr>
                             <td style="width: 10%;border:none">작성자</td>
-                            <td style="width: 90%;border:none">운영자</td>
+                            <td style="width: 90%;border:none">${user_name}</td>
                         </tr>
                         <tr>
                             <td colspan="2" class="view_text">

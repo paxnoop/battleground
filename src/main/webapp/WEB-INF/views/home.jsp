@@ -49,7 +49,7 @@
             </c:if>
             <c:if test="${user_id ==null && location1 != 'cityhall'}">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/login"><i class="fa fa-sign-in"></i> 로그인</a></li>
+                <li><a href="/${location1}/${location2}/login"><i class="fa fa-sign-in"></i> 로그인</a></li>
             </ul>
             </c:if>
 
